@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../SpringbootAdmin_Client/SpringBootAdmin-client.iml" filepath="$PROJECT_DIR$/../SpringbootAdmin_Client/SpringBootAdmin-client.iml" />
       <module fileurl="file://$PROJECT_DIR$/StuInfoSystem.iml" filepath="$PROJECT_DIR$/StuInfoSystem.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../SpringBootAdmin/springbootAdmin.iml" filepath="$PROJECT_DIR$/../SpringBootAdmin/springbootAdmin.iml" />
     </modules>
   </component>
 </project>

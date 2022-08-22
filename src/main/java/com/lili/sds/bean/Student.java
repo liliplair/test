@@ -12,8 +12,18 @@ public class Student {
     private String stuName;
     private String stuPass;
     private String stuClass;
-    private String stuSex;
+    private Integer stuSex;
     @Size(min = 11,max = 11,message = "请输入11位手机号码")
     private String stuTele;
     private String stuDom;
+
+    public Student(String stuId, String stuName, String stuPass, String stuClass, Integer stuSex, String stuTele, String stuDom) {
+        this.stuId = stuId;
+        this.stuName = stuName;
+        this.stuPass = stuPass;
+        this.stuClass = stuClass;
+        this.stuSex = stuSex;
+        this.stuTele = stuTele;
+        this.stuDom = stuDom;
+    }
 }

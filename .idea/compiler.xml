@@ -8,9 +8,14 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="StuInfoSystem" />
+        <module name="springbootAdmin" />
+        <module name="SpringBootAdmin-client" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="springbootAdmin" target="1.8" />
+      <module name="SpringBootAdmin-client" target="1.8" />
+      <module name="SpringBootAdminModel" target="1.8" />
       <module name="StuInfoSystem" target="1.8" />
     </bytecodeTargetLevel>
   </component>

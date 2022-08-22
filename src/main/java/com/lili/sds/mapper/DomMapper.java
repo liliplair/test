@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
-@Mapper
+
 public interface DomMapper {
 
     @Select("select* from dom where dom_id=#{domId}")

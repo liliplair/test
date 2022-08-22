@@ -24,7 +24,7 @@ logging:
     root:error
 
 server:
-  port: 8080
+  port: 9000
   tomcat:
     uri-encoding: utf-8
 
@@ -32,3 +32,58 @@ pagehelper:
   helperDialect: mysql
   reasonable: true
   supportMethodsArguments: true
+
+#### YAML 概览
+# YAML 直观的能够被电脑识别的数据序列化格式,容易阅读\与脚本语言交互\被编程语言导入
+# YAML 是以数据为核心的, 扩展名可以是 yml, yaml
+#
+# properties(分级不明显)
+# server.port=8080
+# server.address=127.0.0.1
+#
+# xml(标签复杂)
+# <server>
+#   <port>8080</port>
+#   <address>127.0.0.1</address>
+# </server>
+#
+#yml(使用缩进表示层级,使用空格缩进(不允许使用Tab),数据前必须有空格,大小写敏感)
+#  server:
+#  port: 8080
+#  address: 127.0.0.1
+#### YAML 数据格式
+#对象(map):键值对的集合
+#person:
+#  name: lili
+# 行内写法
+#person: {name: lili}
+#数组:
+#address:
+#  - beijing
+#  - shanghai
+#address: [beijing,shanghai]
+#纯量: 单个的\不可再分的值
+#mag1: 'hello \n' # 单引号忽略转义字符
+#msg2: "hello \n" # 双引号识别转义字符
+#### 参数引用
+# name: lili
+# person:
+#   name: ${name}  # 引用上文name的值
+#### 读取配置内容
+#1. @Value("${person.name}")
+#2. Environment
+#'''
+#@Autowired
+#private Environment env;
+#env.getProperty("person.name")
+#env.getProperty("address[0]")
+#'''
+#3. @ConfigurationProperties
+#@ConfigurationProperties(prefix - "person") // 控制前缀
+#'''
+#public class Person{
+#  private String name; // 同名
+#  private int age;
+#  //... get\set() 方法
+#}
+#'''
