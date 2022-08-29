@@ -165,7 +165,7 @@ public class AdminController {
     //根据ID查询学生
     @GetMapping(value = "/adm/selectById")
     public String selectById(@Param("stuId") String stuId, Model model) {
-        Student student = studentService.selectById(stuId);
+        List<Student> student = studentService.selectStudent(stuId);
         model.addAttribute("stus", student);
         return "adm/stubyid";
     }

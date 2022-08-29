@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lili.sds.mapper.StudentMapper">
+    <!--将Java与SQL分离 解耦-->
+    <!--    自定义映射规则
+        id 表示为规则分配id 方便后续引用
+        type 取值为一个类,表示数据库中的查询结果与Java中哪个实体类进行结果集的映射
+        字段一致,同名的属性可以自动匹配
+        定义映射规则时,主键是不能省略的,使用标签id进行定义
+        -->
+    <resultMap id="StudentMap" type="com.lili.sds.bean.Student">
+        <id column="stu_id" property="stuId"></id>
+        <result column="stu_name" property="stuName"></result>
+        <result column="stu_pass" property="stuPass"></result>
+        <result column="stu_class" property="stuClass"></result>
+        <result column="stu_sex" property="stuSex"></result>
+        <result column="stu_tele" property="stuTele"></result>
+        <result column="stu_dom" property="stuDom"></result>
+    </resultMap>
+
+    <!--resultType 表示查询结果集类型
+        resultMap 定义查询结果集的映射规则-->
+    <select id="selectStudentByIdAndPass" resultMap="StudentMap">
+        select * from student
+        where  stu_id=#{stuId} and stu_pass=#{stuPass}
+    </select>
+
+    <!--useGeneratedKeys="true" keyProperty="stu_id"
+        useGenerateKeys 设置某个字段的值递增
+        keyProperty 设置哪个字段为逐渐进行递增-->
+    <insert id="insertStudent" >
+        insert into student (
+                stu_id, stu_name, stu_pass, stu_sex, stu_tele, stu_dom)
+        values (
+                #{stuId}, #{stuName}, #{stuPass}, #{stuSex}, #{stuTele}, #{stuDom} )
+    </insert>
+
+    <select id="selectAllStudent" resultMap="StudentMap">
+        select * from student
+    </select>
+
+    <insert id="insertStudentHavaPass">
+        insert into student (
+            stu_id,stu_name,stu_pass,stu_sex,stu_tele,stu_dom
+        ) values(
+            #{stuId},#{stuName},#{stuPass},#{stuSex},#{stuTele},#{stuDom})
+    </insert>
+
+    <select id="selectStudentByStuId" resultMap="StudentMap">
+        select * from student where  stu_id=#{stuId}
+    </select>
+
+    <delete id="deleteStuById">
+        DELETE from student where stu_id=#{stuId}
+    </delete>
+
+    <select id="selectStudent" resultMap="StudentMap">
+        select *
+        from student
+        where 1=1
+        <if test="stuId != null">
+            and stu_id like concat('%', #{stuId}, '%')
+        </if>
+        <if test="stuName != null">
+            and stu_name like concat('%', #{stuName}, '%')
+        </if>
+        <if test="stuSex != null">
+            and stu_sex=#{stuSex}
+        </if>
+        <if test="stuTele != null">
+            and stu_tele=#{stuTele}
+        </if>
+        <if test="stuDom != null">
+            and stu_dom=#{stuDom}
+        </if>
+    </select>
+</mapper>

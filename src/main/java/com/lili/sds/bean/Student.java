@@ -26,4 +26,6 @@ public class Student {
         this.stuTele = stuTele;
         this.stuDom = stuDom;
     }
+
+    public Student() {}
 }

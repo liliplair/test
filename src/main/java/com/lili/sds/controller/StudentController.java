@@ -1,5 +1,6 @@
 package com.lili.sds.controller;
 
+import com.lili.sds.bean.Admin;
 import com.lili.sds.bean.MyError;
 import com.lili.sds.bean.Repair;
 import com.lili.sds.bean.Student;
@@ -10,10 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -21,7 +19,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+
+/**
+ * 设计请求
+ * 请求路径
+ * 请求参数
+ * 请求类型
+ * 相应结果：JsonResult
+ */
+
+/**
+ * @RestController 相当于
+ * @Controller和@ResponseBody(
+ *      作为方法的注解，此方法的相应结果以json格式进行数据的响应给到前端)
+ *
+ */
 @Controller
+@RequestMapping("stu")
 public class StudentController {
 
     @Autowired
@@ -33,7 +47,8 @@ public class StudentController {
     @PostMapping(value = "/stu/login")
     public String login(@RequestParam("username") String username,
                         @RequestParam("password") String password, Map<String,Object> map, HttpSession session) {
-        Student student=studentService.login(username,password);
+        System.out.println(username+password);
+        Student student=studentService.stuLogin(username,password);
         if(student!=null){
             session.setAttribute("loginUser",username);
             return "redirect:/stumain.html";
@@ -42,6 +57,7 @@ public class StudentController {
             return  "login";
         }
     }
+
 
     //返回首页
     @GetMapping(value = "/stu/toindex")

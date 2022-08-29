@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 /**
  * @ClassName StudentServiceImpl
@@ -20,8 +21,9 @@ public class StudentServiceImpl implements StudentService {
 
     @Autowired
     private StudentMapper studentMapper;
+
     @Override
-    public Student login(String stuId, String stuPass)
+    public Student stuLogin(String stuId, String stuPass)
     {
         return studentMapper.selectStudentByIdAndPass(stuId,stuPass);
     }
@@ -49,5 +51,39 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public int addStudentHavePass(Student student) {
         return studentMapper.insertStudentHavaPass(student);
+    }
+
+    @Override
+    public List<Student> selectStudent(String str) {
+        if(str=="" || str==null){
+            return getAllStudent();
+        }
+        Student student=new Student(null,null,null,null,null,null,null);
+        // 从String中得到Student的属性
+        String[] arr = str.split("\\s+");
+        Pattern isNum = Pattern.compile("[0-9]*");
+        for(String s: arr){
+            System.out.println(s);
+            if(isNum.matcher(s).matches()){
+                if(s.length()=="19936583458".length()){
+                    student.setStuTele(s);
+                } else if(s.length()=="20181685310268".length()){
+                    student.setStuId(s);
+                } else if(s.length()=="202201".length()){
+                    student.setStuDom(s);
+                } else {
+                    if(student.getStuId()==null)
+                        student.setStuId(s);
+                }
+            } else if(s.equals("男")){
+                student.setStuSex(1);
+            } else if(s.equals("女")){
+                student.setStuSex(0);
+            } else{
+                student.setStuName(s);
+            }
+        }
+//        System.out.println(student);
+        return studentMapper.selectStudent(student);
     }
 }
